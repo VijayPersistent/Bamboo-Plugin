@@ -1,0 +1,19 @@
+node {
+
+    stage('Upload') {
+
+        dir('/var/lib/jenkins/workspace'){
+
+            pwd(); //Log current directory
+
+            withAWS(region:'us-east-1',credentials:'aws_cred') {
+
+                 def identity=awsIdentity();//Log AWS credentials
+
+                // Upload files from working directory 'dist' in your project workspace
+                s3Upload(file:'checkmarx-bamboo-plugin-2021.4.34.jar', bucket:'vijay-jenkins-to-s3', path:'/var/lib/jenkins/workspace/s3 upload/target/')
+            }
+
+        };
+    }
+}
